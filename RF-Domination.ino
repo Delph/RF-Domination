@@ -62,12 +62,15 @@ void setup() {
   wirelessSPI.setChannel(rFChan); //set communication frequency channel
   wirelessSPI.openReadingPipe(1, READ_ADDRESS);  //This is receiver or master so we need to be ready to read data from transmitters
   wirelessSPI.startListening();    // Start listening for messages
+
   Serial.begin(115200);  //serial port to display received data
   Serial.print("Node ");
   Serial.print( payload.node);
   Serial.println(" is online...");
+
   pinMode(PIN_RED_SWITCH, INPUT);     // declare pushbutton as input
   pinMode(PIN_GREEN_SWITCH, INPUT);     // declare pushbutton as input
+
   lcd.init();                      // initialize the lcd
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -153,7 +156,7 @@ void setrx()
 {
   wirelessSPI.openReadingPipe(1, READ_ADDRESS);  // Go into listening mode
   wirelessSPI.startListening();             // Start listening for messages
-  wirelessSPI.setDataRate(RF24_250KBPS) ;
+  wirelessSPI.setDataRate(RF24_250KBPS);
   wirelessSPI.setPALevel(RF24_PA_HIGH);
   if (wirelessSPI.available()) //Check if recieved data
   {
@@ -175,6 +178,7 @@ void setrx()
     else if (payload.node == 5)
       node5 = payload.sensor;
   }
+}
 
 // ============================================================================
 // =================           Transmit Mode            =======================
